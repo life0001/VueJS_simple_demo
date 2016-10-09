@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>vue示例</title>
+    <script src="js/vue.min.js"></script>
+    <style>
+        .fc_blue{color:blue;}
+        .fs_20{font-size:20px;}
+        .bg_red{background-color:red;}
+        .bg_orange{background-color:orange;}
+    </style>
+</head>
+<body>
+    <div class="demo">
+        <p>{{msg}}</p>
+        <input v-model="msg" />
+        <p v-text="year"></p>
+        <p v-text="html"></p>
+        <p v-html="html"></p>
+        <p v-if="isShow">是否显示</p>
+        <p v-show="isShow">是否显示</p>
+        <ul>
+            <li v-for="book in book">
+                <p><span v-text="'书名：'+book.name"></span> <span v-text="'ISBN:'+book.isbn"></span> <span v-text="'价格：'+book.price"></span> <span v-text="'出版日期：'+book.date"></span> <span v-text="'总页数：'+book.page"></span></p>
+            </li>
+        </ul>
+        <button @click="count">点击</button>
+        <p :class="{fc_blue: isColor}"> {fc_blue: isColor}对象里面是boolean值</p>
+        <p :class="[fs_20, bg_red]"> [fs_20, bg_red]加载2个及以上class</p>
+        <p :class="[fs_20, {bg_red: isBgRed, bg_orange: isBgorange}]"> [fs_20, {bg_red: isBgRed, bg_orange: isBgorange}]数组里面的第一个class肯定加上去，对象里面是boolean值</p>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:'.demo',
+        data: {
+            msg: '第一个vue',
+            year: '2016',
+            html: '<span>v-text不能保存结构，v-html才可以保存结构</span>',
+            isShow: false,   // v-if 是dom里面不会存在；v-show 是代码里存在用css来控制显示和隐藏
+            isColor: true,
+            isBgRed: false,
+            isBgorange: true,
+            fs_20: 'fs_20',
+            bg_red: 'bg_red',
+            book: [
+                {
+                    name: '基督山伯爵',
+                    isbn: 99999999,
+                    price: 999.99,
+                    date: '1999年2月',
+                    page: 999
+                },
+                {
+                    name: '怪鸭历险记',
+                    isbn: 88888888,
+                    price: 888.88,
+                    date: '1999年4月',
+                    page: 888
+                },
+                {
+                    name: '变形金刚',
+                    isbn: 7777777,
+                    price: 777.77,
+                    date: '1995年7月',
+                    page: 777
+                },
+                {
+                    name: '宇宙骑士迪波威',
+                    isbn: 6666666,
+                    price: 666.66,
+                    date: '1994年5月',
+                    page: 666
+                }
+            ]
+        },
+        methods: {
+            count: function () {
+                this.year ++;
+            }
+        },
+        watch: {
+            'year': function (val, oldval) {
+                console.log(val, oldval);
+            }
+        }
+    });
+</script>
+</html>
